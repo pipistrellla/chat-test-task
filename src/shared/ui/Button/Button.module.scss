@@ -1,0 +1,103 @@
+.addonLeft svg,
+.addonRight svg {
+    color: var(--hint-color);
+}
+
+.Button {
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        color: var(--accent-color);
+
+        .addonLeft svg,
+        .addonRight svg {
+            color: var(--accent-color);
+        }
+    }
+}
+
+.withAddon {
+    padding: 0 16px;
+}
+
+.addonLeft,
+.addonRight {
+    display: flex;
+}
+
+.filled {
+    background: var(--light-bg-color);
+    border: none;
+    outline: none;
+
+    &.normal {
+        background: var(--light-bg-color);
+    }
+
+    &.success {
+        background: var(--save-color);
+    }
+
+    &.error {
+        background: var(--cancel-color);
+    }
+}
+
+.outline {
+    background: none;
+
+    &.normal {
+        border: 2px solid var(--icon-color);
+
+        &:hover {
+            border: 2px solid var(--accent-color);
+        }
+    }
+
+    &.success {
+        border: 2px solid var(--save-color);
+    }
+
+    &.error {
+        border: 2px solid var(--cancel-color);
+    }
+}
+
+.clear {
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.m {
+    font: var(--font-m);
+}
+
+.l {
+    font: var(--font-l);
+}
+
+.xl {
+    font: var(--font-xl);
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.rounded {
+    border-radius: 34px;
+}
+
+.square {
+    border-radius: 0;
+}

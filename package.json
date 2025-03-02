@@ -1,0 +1,83 @@
+{
+    "name": "steam-game-reviewer",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.17.0",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
+        "@types/jest": "^27.5.2",
+        "@types/node": "^16.18.111",
+        "@types/react": "^18.3.9",
+        "@types/react-dom": "^18.3.0",
+        "dotenv": "^16.4.7",
+        "gh-pages": "^6.1.1",
+        "husky": "^9.1.7",
+        "path": "^0.12.7",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^7.1.5",
+        "react-scripts": "5.0.1",
+        "typescript": "^4.9.5",
+        "web-vitals": "^2.1.4",
+        "react-redux": "^8.0.5",
+        "@reduxjs/toolkit": "^1.9.0"
+    },
+    "lint-staged": {
+        "**/*.{ts,tsx}": [
+            "prettier",
+            "eslint"
+        ]
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.12.1",
+        "@typescript-eslint/parser": "^5.12.1",
+        "eslint": "^8.10.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
+        "eslint-plugin-personal-use-fsd-plugin": "^0.0.8",
+        "eslint-plugin-react": "^7.29.2",
+        "eslint-plugin-react-hooks": "^4.3.0",
+        "eslint-plugin-unused-imports": "^2.0.0",
+        "prettier": "3.3.3",
+        "react-app-rewired": "^2.2.1",
+        "sass": "^1.49.9",
+        "stylelint": "^14.5.3",
+        "stylelint-config-standard-scss": "^3.0.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "start:dev": "react-app-rewired start ",
+        "start:prod": "react-app-rewired build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "lint:ts": "eslint --quiet \"**/*.{ts,tsx}\"",
+        "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+        "lint:scss": "npx stylelint \"**/*.scss\"",
+        "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+        "prepare": "husky"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
