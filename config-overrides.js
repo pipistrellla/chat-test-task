@@ -15,6 +15,7 @@ module.exports = function override(config, env) {
             '@': path.resolve(__dirname, 'src'),
         },
     };
+
     if (env === 'development') {
         return Dev(config);
     }
