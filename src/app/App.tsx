@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
+import { ChatGeneral } from '@/widgets/ChatGeneral';
 import { Sidebar } from '@/widgets/Sidebar';
 
 import { AppRouter } from './providers/router';
@@ -14,11 +15,7 @@ const App: FC<AppProps> = () => (
         <MainLayout
             content={<AppRouter />}
             leftBar={<Sidebar />}
-            rightBar={
-                <span>
-                    тут будут данные о пользователе?? или пользователях в чате??
-                </span>
-            }
+            rightBar={<ChatGeneral />}
         />
     </div>
 );
