@@ -2,6 +2,7 @@ import React, { FC, memo } from 'react';
 
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { AppLink } from '@/shared/ui/AppLink';
+import { Text } from '@/shared/ui/Text';
 
 import cls from './SidebarItem.module.scss';
 import { SidebarItemType } from '../../model/types/items';
@@ -10,8 +11,7 @@ interface SidebarItemProps {
     item: SidebarItemType;
     collapsed: boolean;
 }
-// если обернуть в мемо, то перерисовка будет происходить только тогда, когда
-// изменились пропсы
+
 const SidebarItem: FC<SidebarItemProps> = memo((props: SidebarItemProps) => {
     const { item, collapsed } = props;
 
@@ -22,7 +22,9 @@ const SidebarItem: FC<SidebarItemProps> = memo((props: SidebarItemProps) => {
             variant="primary"
             className={classNames(cls.item, { [cls.collapsed]: collapsed }, [])}
         >
-            <span className={cls.link}>{item.text}</span>
+            <span className={cls.link}>
+                <Text text={item.text} />
+            </span>
         </AppLink>
     );
 });
