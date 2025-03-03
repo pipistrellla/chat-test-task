@@ -1,8 +1,11 @@
 import React, { FC, memo } from 'react';
 
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
+import { Button } from '@/shared/ui/Button/Button';
 import { Card } from '@/shared/ui/Card';
+import { Input } from '@/shared/ui/Input';
 import { HStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text';
 
 import cls from './SendMessage.module.scss';
 
@@ -14,11 +17,13 @@ export const SendMessage: FC<SendMessageProps> = memo((props) => {
     const { className } = props;
 
     return (
-        <Card
-            variant="light"
-            className={classNames(cls.sendMessage, {}, [className])}
-        >
-            <HStack> 123 </HStack>
+        <Card className={classNames(cls.sendMessage, {}, [className])}>
+            <HStack>
+                <Input />
+                <Button variant="outline">
+                    <Text text="Отправить" />
+                </Button>
+            </HStack>
         </Card>
     );
 });

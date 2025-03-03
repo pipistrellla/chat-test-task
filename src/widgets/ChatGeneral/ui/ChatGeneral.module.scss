@@ -5,17 +5,29 @@
     border-radius: 32px;
     overflow-y: auto;
     position: relative;
-    
+
     .items {
-        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        height: 220px;
+        overflow-y: auto;
+    }
+
+    .tittle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
     }
 
     .collapseBtn {
         position: absolute;
-        right: 50%;
         top: 80%;
+        left: 50%;
+        transform: translateX(-50%);
         z-index: 10;
-        transform: rotate(-180);
     }
 
     .icon {
@@ -24,27 +36,18 @@
 }
 
 .collapsed {
-    height: 100px;
-
-    .switchers {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .appLogo {
-        padding: 5px;
-    }
+    height: 120px;
+    overflow: hidden;
 
     .items {
-        display: flex;
-        align-items: center;
-    }
-
-    .lang {
-        margin-left: 0;
+        visibility: hidden;
     }
 
     .collapseBtn {
-        transform: rotate(-180deg);
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
     }
 }

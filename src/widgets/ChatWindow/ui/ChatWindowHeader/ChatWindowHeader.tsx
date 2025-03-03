@@ -3,6 +3,7 @@ import React, { FC, memo } from 'react';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Card } from '@/shared/ui/Card';
 import { HStack } from '@/shared/ui/Stack';
+import { Text } from '@/shared/ui/Text';
 
 import cls from './ChatWindowHeader.module.scss';
 
@@ -19,7 +20,7 @@ export const ChatWindowHeader: FC<ChatWindowHeaderProps> = memo((props) => {
             className={classNames(cls.ChatWindowHeader, {}, [className])}
         >
             <HStack max>
-                <div>Картинка нахвание участники (в сети/нет)</div>
+                <Text title="Название чата" />
             </HStack>
         </Card>
     );

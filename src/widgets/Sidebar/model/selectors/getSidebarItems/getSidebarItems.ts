@@ -6,7 +6,11 @@ export const getSidebarItems = () => {
     const sidebarItemsList: SidebarItemType[] = [
         {
             path: getRouteMain(),
-            text: 'Главная',
+            text: 'Комната ожидания',
+        },
+        {
+            path: '12312321',
+            text: 'Рабочий чат',
         },
     ];
 
