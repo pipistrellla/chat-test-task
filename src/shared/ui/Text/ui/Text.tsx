@@ -18,7 +18,6 @@ interface TextProps {
     align?: TextAlign;
     size?: TextSize;
     bold?: boolean;
-    'data-testid'?: string;
 }
 type HeaderTagType = 'h1' | 'h2' | 'h3';
 

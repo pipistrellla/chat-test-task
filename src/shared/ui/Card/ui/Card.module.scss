@@ -7,7 +7,7 @@
 }
 
 .normal {
-    background: var(--dark-bg-redesigned);
+    background: var(--dark-bg-color);
 }
 
 .partial {
@@ -15,11 +15,11 @@
 }
 
 .light {
-    background: var(--light-bg-redesigned);
+    background: var(--light-bg-color);
 }
 
 .outlined {
-    border: 1px solid var(--accent-redesigned);
+    border: 1px solid var(--accent-color);
 }
 
 .max {

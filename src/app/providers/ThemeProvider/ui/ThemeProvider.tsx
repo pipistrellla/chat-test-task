@@ -13,18 +13,16 @@ const fallbackTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme;
 
 export const ThemeProvider: FC<ThemeProviderProps> = (props) => {
     const { initialTheme, children } = props;
-    const [isThemeInited, setThemeInited] = useState(false);
+    const [isThemeInited, setThemeInited] = useState(!LOCAL_STORAGE_THEME_KEY);
 
-    const [theme, setTheme] = useState<Theme>(
-        initialTheme || fallbackTheme || Theme.DARK,
-    );
+    const [theme, setTheme] = useState<Theme>(initialTheme || fallbackTheme);
 
     useEffect(() => {
         if (!isThemeInited && initialTheme) {
             setTheme(initialTheme);
             setThemeInited(true);
         }
-    }, [initialTheme, isThemeInited]);
+    }, [initialTheme, isThemeInited, theme]);
 
     useEffect(() => {
         document.body.className = theme;

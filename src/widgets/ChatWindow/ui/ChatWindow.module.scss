@@ -1,0 +1,20 @@
+.chatWindow {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    flex-shrink: 0;  
+}
+
+.messages {
+    flex-grow: 1; 
+    
+    overflow-y: auto; 
+    padding: 10px;
+}
+
+.messageWriter {
+    flex-shrink: 0; 
+}

@@ -20,13 +20,8 @@ const SidebarItem: FC<SidebarItemProps> = memo((props: SidebarItemProps) => {
             activeClassName={cls.active}
             to={item.path}
             variant="primary"
-            className={classNames(
-                cls.itemRedesigned,
-                { [cls.collapsedRedesigned]: collapsed },
-                [],
-            )}
+            className={classNames(cls.item, { [cls.collapsed]: collapsed }, [])}
         >
-            {/* {item.Icon ?? <Icon Svg={item.Icon} />} */}
             <span className={cls.link}>{item.text}</span>
         </AppLink>
     );

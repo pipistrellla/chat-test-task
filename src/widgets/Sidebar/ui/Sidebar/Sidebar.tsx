@@ -3,6 +3,7 @@ import React, { FC, memo, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { ThemeSwitcher } from '@/features/ThemeSwitcher';
+import ArrowIcon from '@/shared/assets/icons/arrow-bottom.svg';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Button } from '@/shared/ui/Button/Button';
 import VStack from '@/shared/ui/Stack/VStack/VStack';
@@ -35,25 +36,21 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
 
     return (
         <aside
-            data-testid="sidebar"
-            className={classNames(
-                cls.SidebarRedesigned,
-                { [cls.collapsedRedesigned]: collapsed },
-                [className],
-            )}
+            className={classNames(cls.Sidebar, { [cls.collapsed]: collapsed }, [
+                className,
+            ])}
         >
             <VStack role="navigation" gap="8" className={cls.items}>
                 {itemsList}
             </VStack>
-            {/* <Icon
-                Svg={ArrowIcon}
+            <Button
+                variant="clear"
                 onClick={() => onToggle()}
                 className={cls.collapseBtn}
-                clickable
-            /> */}
-            <Button onClick={() => onToggle()} className={cls.collapseBtn}>
-                toggle
+            >
+                <img src={ArrowIcon} alt="arrow" />
             </Button>
+
             <div className={cls.switchers}>
                 <ThemeSwitcher />
             </div>
