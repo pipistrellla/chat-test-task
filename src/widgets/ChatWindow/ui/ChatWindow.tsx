@@ -15,9 +15,8 @@ export const ChatWindow: FC<ChatWindowProps> = memo((props) => {
     const { className } = props;
 
     const testArr: MessageSchema[] = new Array(20).fill({
-        author: { name: 'Егор', id: '1', password: '123' },
         id: `${new Date().getDate()}`,
-        timestamp: '1741162051',
+        timestamp: 1741162051,
         value: 'Прием я гром',
     } as MessageSchema) as MessageSchema[];
 

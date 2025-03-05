@@ -19,7 +19,7 @@ export const Message: FC<MessageProps> = memo((props) => {
     const content = hideSender ? (
         <Text text={message.value} />
     ) : (
-        <Text title={message.author.name} text={message.value} />
+        <Text title={message.id} text={message.value} />
     );
 
     return (
