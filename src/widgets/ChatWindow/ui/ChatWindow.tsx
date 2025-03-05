@@ -30,7 +30,7 @@ export const ChatWindow: FC<ChatWindowProps> = memo((props) => {
             fullHeight
             className={classNames(cls.chatWindow, {}, [className])}
         >
-            <ChatWindowHeader className={cls.header} />
+            <ChatWindowHeader chatName="тестовый чат" className={cls.header} />
             <ShowMessages message={testArr} className={cls.messages} />
             <SendMessage
                 sendMessageHandler={SendMessageHandler}

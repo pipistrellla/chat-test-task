@@ -7,7 +7,6 @@ import cls from './Modal.module.scss';
 import { Overlay } from '../../Overlay';
 import { Portal } from '../../Portal';
 
-
 interface modalProps {
     className?: string;
     children?: ReactNode;
@@ -40,7 +39,7 @@ export const Modal: FC<modalProps> = (props) => {
         return null;
     }
 
-    const additionalClasses = [className, cls.modal];
+    const additionalClasses = [className];
 
     return (
         <Portal>

@@ -1,3 +1,3 @@
-import { Auth } from './ui/Auth';
+import AuthModal from './ui/AuthModal/AuthModal';
 
-export { Auth };
+export { AuthModal };

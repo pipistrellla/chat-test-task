@@ -19,6 +19,7 @@
     transform: scale(0.5);
     max-width: 60%;
     z-index: var(--modal-z-index);
+    background-color: var(--light-bg-color);
 }
 
 .opened {
@@ -34,11 +35,5 @@
 .isClosing {
     .content {
         transform: scale(0);
-    }
-}
-
-.modal {
-    .content {
-        background-color: var(--light-bg-color);
     }
 }

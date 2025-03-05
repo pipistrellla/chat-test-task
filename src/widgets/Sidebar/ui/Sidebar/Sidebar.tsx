@@ -3,6 +3,7 @@ import React, { FC, memo, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { User, UserSchema } from '@/entities/User';
+import { AuthModal } from '@/features/Auth';
 import { ThemeSwitcher } from '@/features/ThemeSwitcher';
 import ArrowIcon from '@/shared/assets/icons/arrow-bottom.svg';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
@@ -19,8 +20,16 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState<boolean>(false);
     const sidebarItemsList = useSelector(getSidebarItems);
+    const [isVisible, setIsisVisible] = useState<boolean>(false);
+
+    const setIsVisibleHandler = () => {
+        setIsisVisible(!isVisible);
+    };
+
+    const loginButtonText = isVisible ? 'войти' : 'выйти';
+
     const onToggle = (): void => {
         setCollapsed((prev) => !prev);
     };
@@ -50,10 +59,12 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
             ])}
         >
             <User User={testUser} className={cls.user} />
+
             <VStack role="navigation" gap="8" className={cls.items}>
                 <Text text="Доступные чаты" className={cls.chatLabel} />
                 {itemsList}
             </VStack>
+
             <Button
                 variant="clear"
                 onClick={() => onToggle()}
@@ -63,8 +74,17 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
             </Button>
 
             <div className={cls.switchers}>
+                <Button
+                    onClick={setIsVisibleHandler}
+                    variant={collapsed ? 'clear' : 'outline'}
+                >
+                    <Text text={loginButtonText} />
+                </Button>
+
                 <ThemeSwitcher />
             </div>
+
+            <AuthModal isOpen={isVisible} onClose={setIsVisibleHandler} />
         </aside>
     );
 });

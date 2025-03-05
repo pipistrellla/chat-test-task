@@ -5,7 +5,6 @@ import { timeFormat } from '@/shared/lib/helpers/TimeFormat/timeFormat';
 import { Card } from '@/shared/ui/Card';
 import { Text } from '@/shared/ui/Text';
 
-import cls from './Message.module.scss';
 import { MessageSchema } from '../model/types/MessageSchema';
 
 interface MessageProps {
@@ -26,7 +25,7 @@ export const Message: FC<MessageProps> = memo((props) => {
     return (
         <Card
             key={message.id}
-            className={classNames(cls.message, {}, [className])}
+            className={classNames('', {}, [className])}
             variant="light"
         >
             {content}

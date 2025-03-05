@@ -7,8 +7,6 @@ import { Input } from '@/shared/ui/Input';
 import { HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 
-import cls from './SendMessage.module.scss';
-
 interface SendMessageProps {
     className?: string;
     sendMessageHandler: (value: string) => void;
@@ -24,7 +22,7 @@ export const SendMessage: FC<SendMessageProps> = (props) => {
     };
 
     return (
-        <Card className={classNames(cls.sendMessage, {}, [className])}>
+        <Card className={classNames('', {}, [className])}>
             <HStack>
                 <Input value={value} onChange={setValue} />
                 <Button
