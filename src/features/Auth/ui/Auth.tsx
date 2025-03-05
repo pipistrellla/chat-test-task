@@ -18,7 +18,7 @@ export const Auth: FC<AuthProps> = memo((props) => {
     return (
         <div className={classNames(cls.Auth, {}, [className])}>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <Input label="Логин стима" />
+                <Input label="Логин/имя" />
                 <Input label="Пароль" />
             </Modal>
         </div>

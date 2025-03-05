@@ -2,11 +2,13 @@ import React, { FC, memo, useMemo, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { User, UserSchema } from '@/entities/User';
 import { ThemeSwitcher } from '@/features/ThemeSwitcher';
 import ArrowIcon from '@/shared/assets/icons/arrow-bottom.svg';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Button } from '@/shared/ui/Button/Button';
 import VStack from '@/shared/ui/Stack/VStack/VStack';
+import { Text } from '@/shared/ui/Text';
 
 import cls from './Sidebar.module.scss';
 import { getSidebarItems } from '../../model/selectors/getSidebarItems/getSidebarItems';
@@ -22,6 +24,13 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
     const onToggle = (): void => {
         setCollapsed((prev) => !prev);
     };
+
+    const testUser: UserSchema = {
+        id: '1',
+        name: 'Егор',
+        password: '123',
+    };
+
     const itemsList = useMemo(
         () =>
             sidebarItemsList.map((item) => (
@@ -40,7 +49,9 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
                 className,
             ])}
         >
+            <User User={testUser} className={cls.user} />
             <VStack role="navigation" gap="8" className={cls.items}>
+                <Text text="Доступные чаты" className={cls.chatLabel} />
                 {itemsList}
             </VStack>
             <Button
