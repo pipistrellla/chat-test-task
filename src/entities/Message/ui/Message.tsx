@@ -1,15 +1,37 @@
 import React, { FC, memo } from 'react';
 
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
+import { timeFormat } from '@/shared/lib/helpers/TimeFormat/timeFormat';
+import { Card } from '@/shared/ui/Card';
+import { Text } from '@/shared/ui/Text';
 
 import cls from './Message.module.scss';
+import { MessageSchema } from '../model/types/MessageSchema';
 
 interface MessageProps {
     className?: string;
+    message: MessageSchema;
+    hideSender?: boolean;
 }
 
 export const Message: FC<MessageProps> = memo((props) => {
-    const { className } = props;
+    const { className, message, hideSender } = props;
 
-    return <div className={classNames(cls.message, {}, [className])}>123</div>;
+    const content = hideSender ? (
+        <Text text={message.value} />
+    ) : (
+        <Text title={message.author.name} text={message.value} />
+    );
+
+    return (
+        <Card
+            key={message.id}
+            className={classNames(cls.message, {}, [className])}
+            variant="light"
+        >
+            {content}
+            <hr />
+            <Text size="s" text={timeFormat(+message.timestamp)} />
+        </Card>
+    );
 });

@@ -20,12 +20,10 @@ class ErrorBoundary extends React.Component<
     }
 
     static getDerivedStateFromError(error: Error) {
-        // Update state so the next render will show the fallback UI.
         return { hasError: true };
     }
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        // You can also log the error to an error reporting service
         console.log(error, errorInfo);
     }
 
@@ -34,7 +32,6 @@ class ErrorBoundary extends React.Component<
         const { children } = this.props;
 
         if (hasError) {
-            // You can render any custom fallback UI
             return (
                 <Suspense fallback="">
                     <PageError />
@@ -47,6 +44,3 @@ class ErrorBoundary extends React.Component<
 }
 
 export default ErrorBoundary;
-
-// если нужно импортировать с i18n
-// export default withTranslation()(ErrorBoundary);

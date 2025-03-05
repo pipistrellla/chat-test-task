@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, useState } from 'react';
 
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Button } from '@/shared/ui/Button/Button';
@@ -11,19 +11,29 @@ import cls from './SendMessage.module.scss';
 
 interface SendMessageProps {
     className?: string;
+    sendMessageHandler: (value: string) => void;
 }
 
-export const SendMessage: FC<SendMessageProps> = memo((props) => {
-    const { className } = props;
+export const SendMessage: FC<SendMessageProps> = (props) => {
+    const { className, sendMessageHandler } = props;
+
+    const [value, setValue] = useState<string>('');
+
+    const onClickSendMEssageHandler = (value: string) => {
+        sendMessageHandler(value);
+    };
 
     return (
         <Card className={classNames(cls.sendMessage, {}, [className])}>
             <HStack>
-                <Input />
-                <Button variant="outline">
+                <Input value={value} onChange={setValue} />
+                <Button
+                    onClick={() => onClickSendMEssageHandler(value)}
+                    variant="outline"
+                >
                     <Text text="Отправить" />
                 </Button>
             </HStack>
         </Card>
     );
-});
+};
