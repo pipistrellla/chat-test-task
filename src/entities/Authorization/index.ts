@@ -1,6 +1,6 @@
 import { authReducer } from './model/slice/AuthorizationSlice';
 import { AuthSchema } from './model/type/AuthorizationSchema';
-import { Authorization } from './ui/Authorization';
 
+export * from './model/selector/AuthorizationSelector';
 export type { AuthSchema };
-export { Authorization, authReducer };
+export { authReducer };
