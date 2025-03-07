@@ -1,6 +1,10 @@
 export interface ChatSchema {
     id: string;
     name: string;
-    messagesId: string[];
+    messages: {
+        ids: string[];
+        lastLoadedMessageIndex: number;
+    };
     membersId: string[];
+    newMessagesCount: number;
 }

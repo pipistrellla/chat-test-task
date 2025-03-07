@@ -2,7 +2,7 @@ import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 import { MessageSchema } from '../types/MessageSchema';
 
-const messagesAdapter = createEntityAdapter<MessageSchema>({
+export const messagesAdapter = createEntityAdapter<MessageSchema>({
     selectId: (message) => message.id,
 });
 

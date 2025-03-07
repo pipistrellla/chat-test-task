@@ -1,6 +1,6 @@
 export interface MessageSchema {
     id: string;
     value: string;
-    author: string;
+    authorId: string;
     timestamp: number;
 }

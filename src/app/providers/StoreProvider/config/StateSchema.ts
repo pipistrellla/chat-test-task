@@ -1,5 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
 
+import { AuthSchema } from '@/entities/Authorization';
 import { ChatSchema } from '@/entities/Chat';
 import { CounterSchema } from '@/entities/Counter';
 import { MessageSchema } from '@/entities/Message';
@@ -12,6 +13,7 @@ export interface StateSchema {
     chat: EntityState<ChatSchema>;
     message: EntityState<MessageSchema>;
     user: EntityState<UserSchema>;
+    authorization: AuthSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

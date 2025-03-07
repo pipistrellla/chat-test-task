@@ -6,7 +6,7 @@ import {
 
 import { ChatSchema } from '../types/ChatSchema';
 
-const chatsAdapter = createEntityAdapter<ChatSchema>({
+export const chatsAdapter = createEntityAdapter<ChatSchema>({
     selectId: (chat) => chat.id,
 });
 

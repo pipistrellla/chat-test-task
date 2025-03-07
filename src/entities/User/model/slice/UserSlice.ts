@@ -2,7 +2,7 @@ import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 import { UserSchema } from '../types/UserSchema';
 
-const usersAdapter = createEntityAdapter<UserSchema>({
+export const usersAdapter = createEntityAdapter<UserSchema>({
     selectId: (user) => user.id,
 });
 
