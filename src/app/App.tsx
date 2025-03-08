@@ -18,7 +18,7 @@ const temChatMember: UserSchema[] = [
         password: '123',
     },
     {
-        id: '1',
+        id: '2',
         name: 'Олег',
         password: '123',
     },

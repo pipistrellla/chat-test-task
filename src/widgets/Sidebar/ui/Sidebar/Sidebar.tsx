@@ -2,11 +2,13 @@ import React, { FC, memo, useMemo, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { User, UserSchema } from '@/entities/User';
+import { LogoutUser } from '@/entities/Authorization';
+import { User } from '@/entities/User';
 import { AuthModal } from '@/features/Auth';
 import { ThemeSwitcher } from '@/features/ThemeSwitcher';
 import ArrowIcon from '@/shared/assets/icons/arrow-bottom.svg';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
+import { loadSessionUser } from '@/shared/lib/helpers/sessionstorage/sessionstorage';
 import { Button } from '@/shared/ui/Button/Button';
 import VStack from '@/shared/ui/Stack/VStack/VStack';
 import { Text } from '@/shared/ui/Text';
@@ -22,22 +24,24 @@ interface SidebarProps {
 export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const sidebarItemsList = useSelector(getSidebarItems);
+
+    const isAuth = loadSessionUser();
+
+    const onToggle = (): void => {
+        setCollapsed((prev) => !prev);
+    };
+
+    const user = loadSessionUser();
+
     const [isVisible, setIsisVisible] = useState<boolean>(false);
 
     const setIsVisibleHandler = () => {
         setIsisVisible(!isVisible);
     };
 
-    const loginButtonText = isVisible ? 'войти' : 'выйти';
-
-    const onToggle = (): void => {
-        setCollapsed((prev) => !prev);
-    };
-
-    const testUser: UserSchema = {
-        id: '1',
-        name: 'Егор',
-        password: '123',
+    const onCLickLogOut = () => {
+        LogoutUser();
+        window.location.reload();
     };
 
     const itemsList = useMemo(
@@ -52,19 +56,24 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
         [collapsed, sidebarItemsList],
     );
 
+    const authedElements = (
+        <>
+            <User User={user} className={cls.user} />
+
+            <VStack role="navigation" gap="8" className={cls.items}>
+                <Text text="Доступные чаты" className={cls.chatLabel} />
+                {itemsList}
+            </VStack>
+        </>
+    );
+
     return (
         <aside
             className={classNames(cls.Sidebar, { [cls.collapsed]: collapsed }, [
                 className,
             ])}
         >
-            <User User={testUser} className={cls.user} />
-
-            <VStack role="navigation" gap="8" className={cls.items}>
-                <Text text="Доступные чаты" className={cls.chatLabel} />
-                {itemsList}
-            </VStack>
-
+            {isAuth && authedElements}
             <Button
                 variant="clear"
                 onClick={() => onToggle()}
@@ -75,15 +84,14 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
 
             <div className={cls.switchers}>
                 <Button
-                    onClick={setIsVisibleHandler}
+                    key={2}
+                    onClick={isAuth ? onCLickLogOut : setIsVisibleHandler}
                     variant={collapsed ? 'clear' : 'outline'}
                 >
-                    <Text text={loginButtonText} />
+                    <Text text={isAuth ? 'выйти' : 'войти'} />
                 </Button>
-
                 <ThemeSwitcher />
             </div>
-
             <AuthModal isOpen={isVisible} onClose={setIsVisibleHandler} />
         </aside>
     );

@@ -1,9 +1,4 @@
 export const LOCAL_STORAGE_THEME_KEY: string = 'theme';
+export const APP_LOCALSTORAGE_KEY: string = 'appData';
 
-export const USER_LOCALSTORAGE_KEY: string = 'test';
-
-export const CHAT_LOCALSTORAGE_KEY: string = 'chat';
-
-export const USERS_LOCALSTORAGE_KEY: string = 'users';
-
-export const MESSAGES_LOCALSTORAGE_KEY: string = 'messages';
+export const USER_SESSIONSTORAGE_KEY: string = 'appData';

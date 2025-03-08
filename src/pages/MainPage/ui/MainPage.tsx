@@ -1,9 +1,8 @@
 import React, { FC, memo } from 'react';
 
-import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
-import { ChatWindow } from '@/widgets/ChatWindow';
-
-import cls from './MainPage.module.scss';
+import { loadSessionUser } from '@/shared/lib/helpers/sessionstorage/sessionstorage';
+import { Card } from '@/shared/ui/Card';
+import { Text } from '@/shared/ui/Text';
 
 interface MainPageProps {
     className?: string;
@@ -12,5 +11,25 @@ interface MainPageProps {
 export const MainPage: FC<MainPageProps> = memo((props) => {
     const { className } = props;
 
-    return <ChatWindow className={classNames(cls.mainPage, {}, [className])} />;
+    const isAuthorized = Boolean(loadSessionUser());
+
+    if (!isAuthorized) {
+        return (
+            <Card fullHeight>
+                <Text
+                    title="Добро пожаловть в чат"
+                    text="Чтобы воспользоваться функциями чата войдите в аккаунт или создайте его"
+                />
+            </Card>
+        );
+    }
+
+    return (
+        <Card fullHeight>
+            <Text
+                title="Добро пожаловать!"
+                text="Выберете нужный чат в меню справа или создайте новый!"
+            />
+        </Card>
+    );
 });

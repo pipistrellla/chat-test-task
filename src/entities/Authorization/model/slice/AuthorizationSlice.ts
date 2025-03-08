@@ -1,36 +1,27 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { UserSchema } from '@/entities/User';
+import { APP_LOCALSTORAGE_KEY } from '@/shared/const/localStorage';
 import {
-    loadSessionUser,
     removeSessionUser,
     saveSessionUser,
 } from '@/shared/lib/helpers/sessionstorage/sessionstorage';
 
-import { AuthSchema } from '../type/AuthorizationSchema';
+export const loginUser = (name: string, password: string): boolean => {
+    const storage = JSON.parse(
+        localStorage.getItem(APP_LOCALSTORAGE_KEY) || '',
+    );
 
-const storedUser = loadSessionUser();
+    const users = Object.values(storage.user.entities);
 
-const initialState: AuthSchema = {
-    user: storedUser,
-    isAuth: Boolean(storedUser),
+    const user = users.find(
+        (user: any) => user.name === name && user.password === password,
+    ) as UserSchema;
+
+    if (user) {
+        saveSessionUser(user);
+        return false;
+    }
+    return true;
 };
-
-const authSlice = createSlice({
-    name: 'auth',
-    initialState,
-    reducers: {
-        login: (state, action: PayloadAction<UserSchema>) => {
-            state.user = action.payload;
-            state.isAuth = true;
-            saveSessionUser(action.payload);
-        },
-        logout: (state) => {
-            state.user = null;
-            state.isAuth = false;
-            removeSessionUser();
-        },
-    },
-});
-
-export const { actions: authActions, reducer: authReducer } = authSlice;
+export const LogoutUser = () => {
+    removeSessionUser();
+};

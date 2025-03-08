@@ -1,5 +1,6 @@
-import { FC, memo, useCallback } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 
+import { loginUser } from '@/entities/Authorization';
 import { Button } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input';
 import { VStack } from '@/shared/ui/Stack';
@@ -15,48 +16,50 @@ export interface AuthFormProps {
 const AuthForm: FC<AuthFormProps> = memo((props: AuthFormProps) => {
     const { className, onSuccess } = props;
 
-    // const dispatch = useAppDispatch();
-
-    // const username = useSelector(getLoginUsername);
+    const [name, setName] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<boolean>();
 
     const onChangeUsername = useCallback((value: string) => {
-        // dispatch(LoginActions.setUsername(value));
+        setName(value);
     }, []);
 
     const onChangePassword = useCallback((value: string) => {
-        // dispatch(LoginActions.setPassword(value));
+        setPassword(value);
     }, []);
 
-    const onClickLogin = useCallback(async () => {
-        // const result = await dispatch(loginByUsername({ username, password }));
-        // if (result.meta.requestStatus === 'fulfilled') {
-        //     onSuccess();
-        //     window.location.reload();
-        // }
-    }, []);
+    const onClickLogin = () => {
+        const loginSuccess = loginUser(name, password);
+        setError(loginSuccess);
+
+        if (loginSuccess === false) {
+            onSuccess();
+            window.location.reload();
+        }
+    };
 
     return (
         <VStack className={cls.authForm} gap="16">
             <Text title="Форма авторизации" />
-            {/* {error && (
+            {error === true ? (
                 <Text
-                    variant="error"
-                    text={t('вы ввели неверный логин или пароль')}
+                    variant="accent"
+                    text="вы ввели неверный логин или пароль"
                 />
-            )} */}
+            ) : null}
             <Input
                 type="text"
                 className={cls.input}
                 placeholder="введите имя пользователя"
                 onChange={onChangeUsername}
-                // value={username}
+                value={name}
             />
             <Input
                 type="text"
                 className={cls.input}
                 placeholder="введите пароль"
                 onChange={onChangePassword}
-                // value={password}
+                value={password}
             />
             <Button
                 className={cls.LoginBtn}

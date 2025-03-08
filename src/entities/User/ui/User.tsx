@@ -7,7 +7,7 @@ import { UserSchema } from '../model/types/UserSchema';
 
 interface UserProps {
     className?: string;
-    User: UserSchema;
+    User?: UserSchema;
 }
 
 export const User: FC<UserProps> = memo((props) => {
@@ -15,7 +15,7 @@ export const User: FC<UserProps> = memo((props) => {
 
     return (
         <div className={classNames('', {}, [className])}>
-            <Text bold title={User.name} text="текущий пользователь" />
+            <Text bold title={User?.name} text="текущий пользователь" />
         </div>
     );
 });
