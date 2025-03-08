@@ -10,5 +10,5 @@ export const getRouteChat = (id: string) => `/chat/${id}`;
 
 export const AppRouteByPathPattern: Record<string, AppRoutes> = {
     [getRouteMain()]: AppRoutes.MAIN,
-    [getRouteChat(':id')]: AppRoutes.MAIN,
+    [getRouteChat(':id')]: AppRoutes.CHAT_DETAILS,
 };

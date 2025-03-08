@@ -1,3 +1,4 @@
+import { ChatDetailsPage } from '@/pages/ChatDetailsPage';
 import { MainPage } from '@/pages/MainPage';
 import { AppRoutes, getRouteChat, getRouteMain } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
@@ -9,7 +10,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.CHAT_DETAILS]: {
         path: getRouteChat(':id'),
-        element: <MainPage />,
+        element: <ChatDetailsPage />,
         // authOnly: true,
     },
 

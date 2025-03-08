@@ -1,6 +1,4 @@
-import React, { FC, memo, useMemo, useState } from 'react';
-
-import { useSelector } from 'react-redux';
+import React, { FC, memo, useState } from 'react';
 
 import { LogoutUser } from '@/entities/Authorization';
 import { User } from '@/entities/User';
@@ -14,8 +12,7 @@ import VStack from '@/shared/ui/Stack/VStack/VStack';
 import { Text } from '@/shared/ui/Text';
 
 import cls from './Sidebar.module.scss';
-import { getSidebarItems } from '../../model/selectors/getSidebarItems/getSidebarItems';
-import SidebarItem from '../SidebarItem/SidebarItem';
+import { SidebarItemsList } from '../SidebarItemsList/SidebarItemsList';
 
 interface SidebarProps {
     className?: string;
@@ -23,15 +20,12 @@ interface SidebarProps {
 
 export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
     const [collapsed, setCollapsed] = useState<boolean>(false);
-    const sidebarItemsList = useSelector(getSidebarItems);
-
-    const isAuth = loadSessionUser();
+    const isAuth = Boolean(loadSessionUser());
+    const user = loadSessionUser();
 
     const onToggle = (): void => {
         setCollapsed((prev) => !prev);
     };
-
-    const user = loadSessionUser();
 
     const [isVisible, setIsisVisible] = useState<boolean>(false);
 
@@ -44,28 +38,16 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
         window.location.reload();
     };
 
-    const itemsList = useMemo(
-        () =>
-            sidebarItemsList.map((item) => (
-                <SidebarItem
-                    item={item}
-                    collapsed={collapsed}
-                    key={item.path}
-                />
-            )),
-        [collapsed, sidebarItemsList],
-    );
-
-    const authedElements = (
+    const authedElements = isAuth ? (
         <>
             <User User={user} className={cls.user} />
 
             <VStack role="navigation" gap="8" className={cls.items}>
                 <Text text="Доступные чаты" className={cls.chatLabel} />
-                {itemsList}
+                <SidebarItemsList collapsed={collapsed} userId={user.id} />
             </VStack>
         </>
-    );
+    ) : null;
 
     return (
         <aside
@@ -73,7 +55,7 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
                 className,
             ])}
         >
-            {isAuth && authedElements}
+            {authedElements}
             <Button
                 variant="clear"
                 onClick={() => onToggle()}

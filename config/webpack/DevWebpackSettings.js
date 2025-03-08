@@ -17,9 +17,6 @@ module.exports = function overrideDev(config) {
 
     config.plugins.push(
         new webpack.DefinePlugin({
-            'process.env.STEAM_API_KEY': JSON.stringify(
-                process.env.STEAM_API_KEY,
-            ),
             __IS_DEV__: JSON.stringify(isDevValue),
         }),
     );

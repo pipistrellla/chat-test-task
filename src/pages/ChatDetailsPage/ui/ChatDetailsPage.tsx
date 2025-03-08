@@ -1,8 +1,7 @@
 import React, { FC, memo } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import { getChatById } from '@/entities/Chat';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { ChatWindow } from '@/widgets/ChatWindow';
 
@@ -14,12 +13,13 @@ interface ChatDetailsPageProps {
 
 export const ChatDetailsPage: FC<ChatDetailsPageProps> = memo((props) => {
     const { className } = props;
-
-    const chat = useSelector(getChatById('201'));
-
+    const { id } = useParams<{ id: string }>();
+    if (!id) {
+        return null;
+    }
     return (
         <ChatWindow
-            chat={chat}
+            id={id}
             className={classNames(cls.chatDetailsPage, {}, [className])}
         />
     );

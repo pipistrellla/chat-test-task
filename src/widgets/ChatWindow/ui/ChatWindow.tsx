@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { ChatSchema, getMessagesForChat } from '@/entities/Chat';
+import { getChatById, getMessagesForChat } from '@/entities/Chat';
 import {
     getMessagesByIds,
     SendMessage,
@@ -18,14 +18,15 @@ import { ChatWindowHeader } from './ChatWindowHeader/ChatWindowHeader';
 
 interface ChatWindowProps {
     className?: string;
-    chat: ChatSchema | null;
+    id: string;
 }
 
 export const ChatWindow: FC<ChatWindowProps> = memo((props) => {
-    const { className, chat } = props;
+    const { className, id } = props;
 
     const dispatch = useAppDispatch();
-    const messagesId = useSelector(getMessagesForChat('201', 0, 2));
+    const chat = useSelector(getChatById(id));
+    const messagesId = useSelector(getMessagesForChat(id, 0, 2));
     const messages = useSelector(getMessagesByIds(messagesId));
 
     const SendMessageHandler = (value: string) => {
