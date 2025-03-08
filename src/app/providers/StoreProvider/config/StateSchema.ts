@@ -4,8 +4,6 @@ import { ChatSchema } from '@/entities/Chat';
 import { MessageSchema } from '@/entities/Message';
 import { UserSchema } from '@/entities/User';
 
-// TODO вынести логин форму сюды
-// TODO разобраться с типами
 export interface StateSchema {
     chat: EntityState<ChatSchema>;
     message: EntityState<MessageSchema>;
