@@ -12,7 +12,10 @@ import {
 import { StateSchema } from './StateSchema';
 
 export function createReduxStore(initialState?: StateSchema) {
-    const preloadedState = loadState(APP_LOCALSTORAGE_KEY);
+    const preloadedState =
+        loadState<StateSchema>(APP_LOCALSTORAGE_KEY) ?? initialState;
+
+    saveState(APP_LOCALSTORAGE_KEY, preloadedState);
 
     const rootReducers: ReducersMapObject<StateSchema> = {
         chat: chatReducer,

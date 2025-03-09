@@ -31,3 +31,9 @@ export const doesUserExist = (userId: string) =>
 
 export const validateUserCredentials = (id: string, password: string) =>
     createSelector(getUserById(id), (user) => user?.password === password);
+
+export const getUsersByIds = createSelector(
+    usersSelectors.selectEntities,
+    (users) => (userIds: string[]) =>
+        userIds.map((id) => users[id] ?? null).filter(Boolean),
+);

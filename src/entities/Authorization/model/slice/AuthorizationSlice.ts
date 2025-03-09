@@ -1,20 +1,23 @@
-import { UserSchema } from '@/entities/User';
+import { StateSchema } from '@/app/providers/StoreProvider';
 import { APP_LOCALSTORAGE_KEY } from '@/shared/const/localStorage';
+import { loadState } from '@/shared/lib/helpers/lcoalstorage/localstorageHelpers';
 import {
     removeSessionUser,
     saveSessionUser,
 } from '@/shared/lib/helpers/sessionstorage/sessionstorage';
 
 export const loginUser = (name: string, password: string): boolean => {
-    const storage = JSON.parse(
-        localStorage.getItem(APP_LOCALSTORAGE_KEY) || '',
+    const storage = loadState<StateSchema>(APP_LOCALSTORAGE_KEY);
+
+    if (!storage || !storage.user.entities) {
+        return true;
+    }
+
+    const users = storage.user.entities;
+
+    const user = Object.values(users).find(
+        (user) => user!.name === name && user!.password === password,
     );
-
-    const users = Object.values(storage.user.entities);
-
-    const user = users.find(
-        (user: any) => user.name === name && user.password === password,
-    ) as UserSchema;
 
     if (user) {
         saveSessionUser(user);

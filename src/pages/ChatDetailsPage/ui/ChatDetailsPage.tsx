@@ -14,6 +14,7 @@ interface ChatDetailsPageProps {
 export const ChatDetailsPage: FC<ChatDetailsPageProps> = memo((props) => {
     const { className } = props;
     const { id } = useParams<{ id: string }>();
+
     if (!id) {
         return null;
     }

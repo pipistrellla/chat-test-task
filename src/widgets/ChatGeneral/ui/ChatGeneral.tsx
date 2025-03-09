@@ -1,6 +1,8 @@
 import React, { FC, memo, useState } from 'react';
 
-import { UserSchema } from '@/entities/User';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { loadSessionUser } from '@/shared/lib/helpers/sessionstorage/sessionstorage';
 import { Button } from '@/shared/ui/Button/Button';
@@ -9,25 +11,27 @@ import { VStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
 
 import cls from './ChatGeneral.module.scss';
+import { getChatMembersData } from '../model/selector/ChatHeneralSelectors';
 
 interface ChatGeneralProps {
     className?: string;
-    chatMembers: UserSchema[];
 }
 
 export const ChatGeneral: FC<ChatGeneralProps> = memo((props) => {
-    const { className, chatMembers } = props;
+    const { className } = props;
     const [collapsed, setCollapsed] = useState(false);
 
     const BtnText = collapsed ? 'Показать всех' : 'Скрыть';
-
     const onToggle = (): void => {
         setCollapsed((prev) => !prev);
     };
-
+    const location = useLocation();
+    const id = location.pathname.split('/').slice(-1)[0];
     const isAuth = Boolean(loadSessionUser());
 
-    if (!isAuth) {
+    const chatMembers = useSelector(getChatMembersData(id ?? '0'));
+
+    if (!isAuth || !id) {
         return null;
     }
 
@@ -42,7 +46,7 @@ export const ChatGeneral: FC<ChatGeneralProps> = memo((props) => {
             <Text text="участники чата" className={cls.tittle} />
             <VStack justify="center" gap="8" className={cls.items}>
                 {chatMembers.map((member) => (
-                    <Card key={member.id}>{member.name}</Card>
+                    <Card key={member!.id}>{member!.name}</Card>
                 ))}
             </VStack>
             <Button

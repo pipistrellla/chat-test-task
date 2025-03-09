@@ -21,6 +21,7 @@ export const ShowMessages: FC<ShowMessagesProps> = memo((props) => {
             <VStack gap="8">
                 {message.map((message, index) => (
                     <Message
+                        key={message.id}
                         message={message}
                         className={
                             index % 2 === 0
