@@ -1,5 +1,8 @@
 import React, { FC, memo } from 'react';
 
+import { useSelector } from 'react-redux';
+
+import { getUserById } from '@/entities/User';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { timeFormat } from '@/shared/lib/helpers/TimeFormat/timeFormat';
 import { Card } from '@/shared/ui/Card';
@@ -16,10 +19,12 @@ interface MessageProps {
 export const Message: FC<MessageProps> = memo((props) => {
     const { className, message, hideSender } = props;
 
+    const sender = useSelector(getUserById(message.authorId));
+
     const content = hideSender ? (
         <Text text={message.value} />
     ) : (
-        <Text title={message.id} text={message.value} />
+        <Text title={sender?.name} text={message.value} />
     );
 
     return (

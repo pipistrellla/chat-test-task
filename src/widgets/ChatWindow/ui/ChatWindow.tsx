@@ -9,6 +9,7 @@ import {
     ShowMessages,
 } from '@/entities/Message';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
+import { loadSessionUser } from '@/shared/lib/helpers/sessionstorage/sessionstorage';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Card } from '@/shared/ui/Card';
 import { Text } from '@/shared/ui/Text';
@@ -28,12 +29,16 @@ export const ChatWindow: FC<ChatWindowProps> = memo((props) => {
     const chat = useSelector(getChatById(id));
     const messagesId = useSelector(getMessagesForChat(id, 0, 2));
     const messages = useSelector(getMessagesByIds(messagesId));
+    const user = loadSessionUser();
+
+    const isChatNotFoundOrUserNotInChat =
+        !chat || !chat.membersId.includes(user.id);
 
     const SendMessageHandler = (value: string) => {
         console.log(value);
     };
 
-    if (!chat) {
+    if (isChatNotFoundOrUserNotInChat) {
         return (
             <Card fullHeight>
                 <Text variant="accent" text="Ошибка загрузки чата" />
@@ -47,7 +52,11 @@ export const ChatWindow: FC<ChatWindowProps> = memo((props) => {
             className={classNames(cls.chatWindow, {}, [className])}
         >
             <ChatWindowHeader chatName={chat?.name} className={cls.header} />
-            <ShowMessages message={messages} className={cls.messages} />
+            <ShowMessages
+                currentUserId={user.id}
+                message={messages}
+                className={cls.messages}
+            />
             <SendMessage
                 sendMessageHandler={SendMessageHandler}
                 className={cls.messageWriter}

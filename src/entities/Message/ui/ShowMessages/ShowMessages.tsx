@@ -11,10 +11,11 @@ import { Message } from '../Message';
 interface ShowMessagesProps {
     className?: string;
     message: MessageSchema[];
+    currentUserId: string;
 }
 
 export const ShowMessages: FC<ShowMessagesProps> = memo((props) => {
-    const { className, message } = props;
+    const { className, message, currentUserId } = props;
 
     return (
         <Card className={classNames(cls.showMessages, {}, [className])}>
@@ -24,11 +25,11 @@ export const ShowMessages: FC<ShowMessagesProps> = memo((props) => {
                         key={message.id}
                         message={message}
                         className={
-                            index % 2 === 0
+                            message.authorId === currentUserId
                                 ? cls.userMessage
                                 : cls.currentUserMessage
                         }
-                        hideSender={index % 2 === 0}
+                        hideSender={message.authorId === currentUserId}
                     />
                 ))}
             </VStack>
