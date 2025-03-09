@@ -11,7 +11,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.CHAT_DETAILS]: {
         path: getRouteChat(':id'),
         element: <ChatDetailsPage />,
-        // authOnly: true,
+        authOnly: true,
     },
 
     [AppRoutes.NOT_FOUND]: {
