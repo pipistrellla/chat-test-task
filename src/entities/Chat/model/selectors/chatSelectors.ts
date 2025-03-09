@@ -56,3 +56,8 @@ export const getMoreMessagesIds = (
 
 export const getNewMessagesCount = (chatId: string) =>
     createSelector(getChatById(chatId), (chat) => chat?.newMessagesCount || 0);
+
+export const getChatsByIds = (chatIds: string[]) =>
+    createSelector(getAllChats, (chats) =>
+        chats.filter((chat) => chatIds.includes(chat.id)),
+    );

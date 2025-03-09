@@ -1,3 +1,4 @@
+import { sendMessage } from './model/action/sendMessage';
 import { messageReducer, messagesAdapter } from './model/slice/MesagesSlice';
 import { MessageSchema } from './model/types/MessageSchema';
 import { Message } from './ui/Message';
@@ -7,4 +8,11 @@ import { ShowMessages } from './ui/ShowMessages/ShowMessages';
 export * from './model/selectors/messageSelectors';
 export type { MessageSchema };
 
-export { Message, SendMessage, ShowMessages, messageReducer, messagesAdapter };
+export {
+    Message,
+    SendMessage,
+    ShowMessages,
+    messageReducer,
+    messagesAdapter,
+    sendMessage,
+};

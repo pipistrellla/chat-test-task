@@ -20,6 +20,19 @@ const chatsSlice = createSlice({
         updateChat: chatsAdapter.updateOne,
         removeChat: chatsAdapter.removeOne,
 
+        addMessageToChat: (
+            state,
+            action: PayloadAction<{ chatId: string; messageId: string }>,
+        ) => {
+            const { chatId, messageId } = action.payload;
+            const chat = state.entities[chatId];
+
+            if (chat) {
+                chat.messages.ids.push(messageId);
+                chat.newMessagesCount += 1;
+            }
+        },
+
         addUserToChat: (
             state,
             action: PayloadAction<{ chatId: string; userId: string }>,

@@ -17,16 +17,28 @@ export const SendMessage: FC<SendMessageProps> = (props) => {
 
     const [value, setValue] = useState<string>('');
 
-    const onClickSendMEssageHandler = (value: string) => {
-        sendMessageHandler(value);
+    const onClickSendMessageHandler = (value: string) => {
+        if (value.trim()) {
+            sendMessageHandler(value);
+        }
+    };
+
+    const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && value.trim()) {
+            onClickSendMessageHandler(value);
+        }
     };
 
     return (
         <Card className={classNames('', {}, [className])}>
             <HStack>
-                <Input value={value} onChange={setValue} />
+                <Input
+                    onKeyDown={onKeyDownHandler}
+                    value={value}
+                    onChange={setValue}
+                />
                 <Button
-                    onClick={() => onClickSendMEssageHandler(value)}
+                    onClick={() => onClickSendMessageHandler(value)}
                     variant="outline"
                 >
                     <Text text="Отправить" />

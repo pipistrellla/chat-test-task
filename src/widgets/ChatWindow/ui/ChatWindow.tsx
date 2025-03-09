@@ -7,6 +7,7 @@ import {
     getMessagesByIds,
     SendMessage,
     ShowMessages,
+    sendMessage,
 } from '@/entities/Message';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { loadSessionUser } from '@/shared/lib/helpers/sessionstorage/sessionstorage';
@@ -27,7 +28,7 @@ export const ChatWindow: FC<ChatWindowProps> = memo((props) => {
 
     const dispatch = useAppDispatch();
     const chat = useSelector(getChatById(id));
-    const messagesId = useSelector(getMessagesForChat(id, 0, 2));
+    const messagesId = useSelector(getMessagesForChat(id, 0, 20));
     const messages = useSelector(getMessagesByIds(messagesId));
     const user = loadSessionUser();
 
@@ -35,7 +36,7 @@ export const ChatWindow: FC<ChatWindowProps> = memo((props) => {
         !chat || !chat.membersId.includes(user.id);
 
     const SendMessageHandler = (value: string) => {
-        console.log(value);
+        dispatch(sendMessage(chat!.id, user.id, value));
     };
 
     if (isChatNotFoundOrUserNotInChat) {
