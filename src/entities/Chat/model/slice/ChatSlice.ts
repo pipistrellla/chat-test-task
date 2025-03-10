@@ -44,6 +44,14 @@ const chatsSlice = createSlice({
                 chat.membersId.push(userId);
             }
         },
+
+        viewNewMessage: (state, action: PayloadAction<{ chatId: string }>) => {
+            const { chatId } = action.payload;
+            const chat = state.entities[chatId];
+            if (chat) {
+                chat.newMessagesCount = 0;
+            }
+        },
     },
 });
 

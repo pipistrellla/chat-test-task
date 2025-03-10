@@ -3,7 +3,7 @@
 import { AppDispatch } from '@/app/providers/StoreProvider'; // Подключите AppDispatch
 import { chatActions } from '@/entities/Chat';
 
-import { messageActions } from '../slice/MesagesSlice';
+import { messageActions } from '../../../../entities/Message/model/slice/MesagesSlice';
 
 export const sendMessage =
     (chatId: string, authorId: string, value: string) =>

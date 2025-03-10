@@ -20,7 +20,7 @@ export const ChatDetailsPage: FC<ChatDetailsPageProps> = memo((props) => {
     }
     return (
         <ChatWindow
-            id={id}
+            chatId={id}
             className={classNames(cls.chatDetailsPage, {}, [className])}
         />
     );

@@ -28,9 +28,12 @@ export function createReduxStore(initialState?: StateSchema) {
         devTools: __IS_DEV__,
         preloadedState: preloadedState ?? initialState,
     });
-
+    // TODO придумать решение получше
     store.subscribe(() => {
-        saveState(APP_LOCALSTORAGE_KEY, store.getState());
+        if (preloadedState !== store.getState()) {
+            saveState(APP_LOCALSTORAGE_KEY, store.getState());
+            saveState('newData', '');
+        }
     });
 
     return store;
