@@ -45,6 +45,18 @@ const chatsSlice = createSlice({
             }
         },
 
+        removeUserFromChat: (
+            state,
+            action: PayloadAction<{ chatId: string; userId: string }>,
+        ) => {
+            const { chatId, userId } = action.payload;
+            const chat = state.entities[chatId];
+
+            if (chat) {
+                chat.membersId = chat.membersId.filter((id) => id !== userId);
+            }
+        },
+
         viewNewMessage: (state, action: PayloadAction<{ chatId: string }>) => {
             const { chatId } = action.payload;
             const chat = state.entities[chatId];

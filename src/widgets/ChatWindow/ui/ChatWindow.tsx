@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { getChatById, getMessagesForChat } from '@/entities/Chat';
+import { chatActions, getChatById, getMessagesForChat } from '@/entities/Chat';
 import {
     ShowMessages,
     getMessagesByIds,
@@ -39,6 +39,15 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
 
     useLocalStorageSync();
 
+    const onLeaveChatHandler = () => {
+        dispatch(
+            chatActions.removeUserFromChat({
+                chatId: chat!.id,
+                userId: user.id,
+            }),
+        );
+    };
+
     const SendMessageHandler = (value: string) => {
         dispatch(sendMessage(chat!.id, user.id, value));
     };
@@ -56,7 +65,11 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
             fullHeight
             className={classNames(cls.chatWindow, {}, [className])}
         >
-            <ChatWindowHeader chatName={chat?.name} className={cls.header} />
+            <ChatWindowHeader
+                leaveChatHandler={onLeaveChatHandler}
+                chatName={chat?.name}
+                className={cls.header}
+            />
             <ShowMessages
                 currentUserId={user.id}
                 message={messages}
