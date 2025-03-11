@@ -1,0 +1,25 @@
+.textArea {
+    border-radius: 24px;
+    padding: 8px 16px;
+    border: 2px solid var(--icon-redesigned);
+    outline: none;
+    width: 100%;
+    min-width: none;
+    background: none;
+    color: var(--text-redesigned);
+    resize: none;
+    white-space: pre-wrap;
+    overflow: hidden;
+
+    &::placeholder {
+        color: var(--hint-redesigned);
+    }
+}
+
+.focused {
+    border: 2px solid var(--accent-redesigned);
+}
+
+.readonly {
+    opacity: 0.7;
+}

@@ -29,6 +29,7 @@ export function createReduxStore(initialState?: StateSchema) {
         preloadedState: preloadedState ?? initialState,
     });
     // TODO придумать решение получше
+    // попробовать сравнивать с session storage
     store.subscribe(() => {
         if (preloadedState !== store.getState()) {
             saveState(APP_LOCALSTORAGE_KEY, store.getState());
@@ -40,3 +41,36 @@ export function createReduxStore(initialState?: StateSchema) {
 }
 
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];
+
+// export function createReduxStore(initialState?: StateSchema) {
+//     // Загружаем данные при старте
+//     const preloadedState = loadState<StateSchema>(APP_LOCALSTORAGE_KEY) ?? initialState;
+
+//     const rootReducers: ReducersMapObject<StateSchema> = {
+//         chat: chatReducer,
+//         message: messageReducer,
+//         user: userReducer,
+//     };
+
+//     const store = configureStore({
+//         reducer: rootReducers,
+//         devTools: __IS_DEV__,
+//         preloadedState,
+//     });
+
+//     // Сохраняем предыдущее состояние в sessionStorage (чтобы избежать бесконечного сохранения)
+//     sessionStorage.setItem('prevState', JSON.stringify(preloadedState));
+
+//     store.subscribe(() => {
+//         const currentState = store.getState();
+//         const prevState = JSON.parse(sessionStorage.getItem('prevState') || '{}');
+
+//         // Сравниваем предыдущее и текущее состояние
+//         if (JSON.stringify(prevState) !== JSON.stringify(currentState)) {
+//             saveState(APP_LOCALSTORAGE_KEY, currentState);
+//             sessionStorage.setItem('prevState', JSON.stringify(currentState)); // Обновляем prevState
+//         }
+//     });
+
+//     return store;
+// }

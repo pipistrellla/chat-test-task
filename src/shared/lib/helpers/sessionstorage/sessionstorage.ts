@@ -2,7 +2,7 @@
 import { UserSchema } from '@/entities/User';
 import { USER_SESSIONSTORAGE_KEY } from '@/shared/const/localStorage';
 
-export const loadSessionUser = () => {
+export const loadSessionUser = (): UserSchema | null => {
     try {
         const user = sessionStorage.getItem(USER_SESSIONSTORAGE_KEY);
         return user ? JSON.parse(user) : null;

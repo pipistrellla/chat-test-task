@@ -1,5 +1,3 @@
-// 1й23
-
 import { useEffect } from 'react';
 
 // redux/actions.ts или redux/slices.ts
@@ -46,3 +44,30 @@ export const useLocalStorageSync = () => {
         };
     }, [dispatch]);
 };
+
+// import { chatActions } from '@/entities/Chat';
+// import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+
+// export const useLocalStorageSync = () => {
+//     const dispatch = useDispatch();
+
+//     useEffect(() => {
+//         // Загружаем данные при старте
+//         dispatch(chatActions.updateMessages(loadMessages()));
+
+//         // Функция обновления Redux при изменении localStorage
+//         const handleStorageChange = (event: StorageEvent) => {
+//             if (event.key === 'chat_messages') {
+//                 dispatch(chatActions.updateMessages(loadMessages()));
+//             }
+//         };
+
+//         // Подписываемся на событие изменения localStorage
+//         window.addEventListener('storage', handleStorageChange);
+
+//         return () => {
+//             window.removeEventListener('storage', handleStorageChange);
+//         };
+//     }, [dispatch]);
+// };

@@ -26,6 +26,9 @@ interface ChatWindowProps {
 // TODO сделать, чтобы не перерисовывалось часто при печатании
 // TODO отрисовка сообщейний после отправки  + вытягивание через время
 //  + индикатор новых сообщений + разобраться с папками ( sendmessage)
+// ПОПЫТАТЬСЯ СОХРАНЯТЬ СТЕЙТ В СЕССИОН ВМЕСТЕ С ПОЛЬЗОВАТЕЛЕМ СТОРАГЕ А ПОТОМ СОХРАНЯТЬ ЕГО В ЛОКАЛ
+// сделать броадкаст для передачи инфы для вкладок
+// или что-то что будет перезагружать redux и загружать новый localstorage
 export const ChatWindow: FC<ChatWindowProps> = (props) => {
     const { className, chatId } = props;
 
@@ -35,7 +38,7 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
     const messagesId = useSelector(getMessagesForChat(chatId, 0, 20));
     const messages = useSelector(getMessagesByIds(messagesId));
     const isChatNotFoundOrUserNotInChat =
-        !chat || !chat.membersId.includes(user.id);
+        !chat || !chat.membersId.includes(user!.id);
 
     useLocalStorageSync();
 
@@ -43,13 +46,13 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
         dispatch(
             chatActions.removeUserFromChat({
                 chatId: chat!.id,
-                userId: user.id,
+                userId: user!.id,
             }),
         );
     };
 
     const SendMessageHandler = (value: string) => {
-        dispatch(sendMessage(chat!.id, user.id, value));
+        dispatch(sendMessage(chat!.id, user!.id, value));
     };
 
     if (isChatNotFoundOrUserNotInChat) {
@@ -71,7 +74,7 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
                 className={cls.header}
             />
             <ShowMessages
-                currentUserId={user.id}
+                currentUserId={user!.id}
                 message={messages}
                 className={cls.messages}
             />

@@ -28,7 +28,7 @@ export const SendMessage: FC<SendMessageProps> = (props) => {
             onClickSendMessageHandler(value);
         }
     };
-
+    // TODO заменить Input на TextArea
     return (
         <Card className={classNames('', {}, [className])}>
             <HStack>

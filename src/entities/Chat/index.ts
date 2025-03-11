@@ -4,8 +4,9 @@ import {
     chatsAdapter,
 } from './model/slice/ChatSlice';
 import { ChatSchema } from './model/types/ChatSchema';
+import ChatSelect from './ui/ChatSelect';
 
 export * from './model/selectors/chatSelectors';
 
 export type { ChatSchema };
-export { chatReducer, chatsAdapter, chatActions };
+export { ChatSelect, chatReducer, chatsAdapter, chatActions };

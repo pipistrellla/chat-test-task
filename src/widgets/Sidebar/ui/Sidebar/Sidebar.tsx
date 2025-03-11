@@ -38,16 +38,17 @@ export const Sidebar: FC<SidebarProps> = memo(({ className }: SidebarProps) => {
         window.location.reload();
     };
 
-    const authedElements = isAuth ? (
-        <>
-            <User User={user} className={cls.user} />
+    const authedElements =
+        isAuth && user ? (
+            <>
+                <User User={user} className={cls.user} />
 
-            <VStack role="navigation" gap="8" className={cls.items}>
-                <Text text="Доступные чаты" className={cls.chatLabel} />
-                <SidebarItemsList collapsed={collapsed} userId={user.id} />
-            </VStack>
-        </>
-    ) : null;
+                <VStack role="navigation" gap="8" className={cls.items}>
+                    <Text text="Доступные чаты" className={cls.chatLabel} />
+                    <SidebarItemsList collapsed={collapsed} userId={user!.id} />
+                </VStack>
+            </>
+        ) : null;
 
     return (
         <aside
