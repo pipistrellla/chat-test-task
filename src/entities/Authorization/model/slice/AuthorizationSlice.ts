@@ -25,6 +25,7 @@ export const loginUser = (name: string, password: string): boolean => {
     }
     return true;
 };
+
 export const LogoutUser = () => {
     removeSessionUser();
 };

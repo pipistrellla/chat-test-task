@@ -1,6 +1,8 @@
 import { FC, memo, useCallback, useState } from 'react';
 
 import { loginUser } from '@/entities/Authorization';
+import { userActions } from '@/entities/User';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Button } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input';
 import { VStack } from '@/shared/ui/Stack';
@@ -15,10 +17,14 @@ export interface AuthFormProps {
 
 const AuthForm: FC<AuthFormProps> = memo((props: AuthFormProps) => {
     const { className, onSuccess } = props;
-
+    const dispatch = useAppDispatch();
     const [name, setName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<boolean>();
+
+    const createUser = (name: string, password: string) => {
+        dispatch(userActions.addUser({ name, password, id: `${Date.now()}` }));
+    };
 
     const onChangeUsername = useCallback((value: string) => {
         setName(value);
@@ -36,6 +42,11 @@ const AuthForm: FC<AuthFormProps> = memo((props: AuthFormProps) => {
             onSuccess();
             window.location.reload();
         }
+    };
+
+    const onClickRegister = () => {
+        createUser(name, password);
+        onSuccess();
     };
 
     return (
@@ -68,6 +79,15 @@ const AuthForm: FC<AuthFormProps> = memo((props: AuthFormProps) => {
             >
                 Войти
             </Button>
+            {error === true ? (
+                <Button
+                    className={cls.LoginBtn}
+                    variant="outline"
+                    onClick={onClickRegister}
+                >
+                    Зарегистрироваться
+                </Button>
+            ) : null}
         </VStack>
     );
 });
