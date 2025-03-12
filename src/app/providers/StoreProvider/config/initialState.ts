@@ -5,7 +5,7 @@ import { UserSchema, usersAdapter } from '@/entities/User';
 import { StateSchema } from './StateSchema';
 
 const testUsers: UserSchema[] = [
-    { id: '1', name: 'Alice', password: 'password123' },
+    { id: '1', name: 'Alice', password: '123123' },
     { id: '2', name: 'Bob', password: 'qwerty' },
     { id: '3', name: 'Egor', password: '123' },
 ];

@@ -1,8 +1,5 @@
 import React, { FC, useState } from 'react';
 
-import { useSelector } from 'react-redux';
-
-import { getMessageById } from '@/entities/Message';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Button } from '@/shared/ui/Button/Button';
 import { Card } from '@/shared/ui/Card';
@@ -16,15 +13,20 @@ interface SendMessageProps {
     className?: string;
     sendMessageHandler: (value: string, replyTo?: string) => void;
     replyTo?: string;
+    setReplyTo?: (value: string) => void;
 }
 
 export const SendMessage: FC<SendMessageProps> = (props) => {
-    const { className, sendMessageHandler, replyTo } = props;
-    const message = useSelector(getMessageById(replyTo ?? ''));
+    const { className, sendMessageHandler, replyTo, setReplyTo } = props;
     const [value, setValue] = useState<string>('');
+
     const onClickSendMessageHandler = (value: string) => {
         if (value.trim()) {
             sendMessageHandler(value, replyTo);
+            setValue('');
+            if (setReplyTo) {
+                setReplyTo('');
+            }
         }
     };
 

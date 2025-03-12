@@ -8,7 +8,6 @@ const Prod = require('./config/webpack/ProdWebpackSettings');
 
 module.exports = function override(config, env) {
     console.log('Current ENV:', env);
-
     config.resolve = {
         ...config.resolve,
         alias: {
@@ -19,6 +18,7 @@ module.exports = function override(config, env) {
     if (env === 'development') {
         return Dev(config);
     }
+
     if (env === 'production') {
         return Prod(config);
     }

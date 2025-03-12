@@ -48,6 +48,7 @@ const AuthForm: FC<AuthFormProps> = memo((props: AuthFormProps) => {
         createUser(name, password);
         loginUser(name, password);
         onSuccess();
+        window.location.reload();
     };
 
     return (

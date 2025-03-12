@@ -86,6 +86,7 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
                 className={cls.messages}
             />
             <SendMessage
+                setReplyTo={onCLickReplyMsg}
                 replyTo={replyMsg}
                 sendMessageHandler={SendMessageHandler}
                 className={cls.messageWriter}
