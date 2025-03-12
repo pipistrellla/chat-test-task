@@ -40,22 +40,14 @@ export const getMessagesForChat = (
     createSelector(getChatMessagesIds(chatId), (messagesIds) =>
         messagesIds.slice(startIndex, startIndex + count),
     );
+
 export const getLastMessagesIds = (chatId: string, count: number) =>
     createSelector(getChatMessagesIds(chatId), (messagesIds) =>
         messagesIds.slice(-count),
     );
 
-export const getMoreMessagesIds = (
-    chatId: string,
-    count: number,
-    loadedCount: number,
-) =>
-    createSelector(getChatMessagesIds(chatId), (messagesIds) =>
-        messagesIds.slice(-(count + loadedCount), -loadedCount || undefined),
-    );
-
-export const getNewMessagesCount = (chatId: string) =>
-    createSelector(getChatById(chatId), (chat) => chat?.newMessagesCount || 0);
+export const getAllMessagesForChat = (chatId: string) =>
+    createSelector(getChatMessagesIds(chatId), (messagesIds) => messagesIds);
 
 export const getChatsByIds = (chatIds: string[]) =>
     createSelector(getAllChats, (chats) =>

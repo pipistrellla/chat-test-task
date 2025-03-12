@@ -39,17 +39,14 @@ const testChats: ChatSchema[] = [
         name: 'Alice & Bob',
         messages: {
             ids: ['101', '102', '103', '104'],
-            lastLoadedMessageIndex: 3,
         },
         membersId: ['1', '2'],
-        newMessagesCount: 2,
     },
     {
         id: '202',
         name: 'General Chat',
-        messages: { ids: ['105'], lastLoadedMessageIndex: 0 },
+        messages: { ids: ['105'] },
         membersId: ['1', '2', '3'],
-        newMessagesCount: 1,
     },
 ];
 

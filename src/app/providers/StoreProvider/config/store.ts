@@ -1,5 +1,10 @@
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+import {
+    configureStore,
+    createAction,
+    ReducersMapObject,
+} from '@reduxjs/toolkit';
 
+// eslint-disable-next-line personal-use-fsd-plugin/layer-imports
 import { chatReducer } from '@/entities/Chat';
 import { messageReducer } from '@/entities/Message';
 import { userReducer } from '@/entities/User';
@@ -10,6 +15,8 @@ import {
 } from '@/shared/lib/helpers/lcoalstorage/localstorageHelpers';
 
 import { StateSchema } from './StateSchema';
+
+export const resetState = createAction('redux/resetState');
 
 export function createReduxStore(initialState?: StateSchema) {
     const preloadedState =
@@ -28,12 +35,29 @@ export function createReduxStore(initialState?: StateSchema) {
         devTools: __IS_DEV__,
         preloadedState: preloadedState ?? initialState,
     });
-    // TODO придумать решение получше
-    // попробовать сравнивать с session storage
+
+    // Если зайти в разные профиля в разных вкладках, то данные в redux store не обновляются
+    // Так как чат считается полностью локальным => на одном браузере (устройстве)
+    // два пользователя не могут одновременно писать и читать сообщения,
+    // но чтобы предусмотреть не закрытую вторую вкладку
+    // другого пользователя, решил обновлять сейт на той вкладке
+    // window.addEventListener('storage', handleStorageChange); - обновляет вкладку,
+    // только в том случае, если local Storage меняется на другой вкладке
+
+    const handleStorageChange = (event: StorageEvent) => {
+        if (event.key === APP_LOCALSTORAGE_KEY) {
+            const newState = loadState<StateSchema>(APP_LOCALSTORAGE_KEY);
+            if (newState) {
+                window.location.reload();
+            }
+        }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
     store.subscribe(() => {
         if (preloadedState !== store.getState()) {
             saveState(APP_LOCALSTORAGE_KEY, store.getState());
-            saveState('newData', '');
         }
     });
 
@@ -41,36 +65,3 @@ export function createReduxStore(initialState?: StateSchema) {
 }
 
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];
-
-// export function createReduxStore(initialState?: StateSchema) {
-//     // Загружаем данные при старте
-//     const preloadedState = loadState<StateSchema>(APP_LOCALSTORAGE_KEY) ?? initialState;
-
-//     const rootReducers: ReducersMapObject<StateSchema> = {
-//         chat: chatReducer,
-//         message: messageReducer,
-//         user: userReducer,
-//     };
-
-//     const store = configureStore({
-//         reducer: rootReducers,
-//         devTools: __IS_DEV__,
-//         preloadedState,
-//     });
-
-//     // Сохраняем предыдущее состояние в sessionStorage (чтобы избежать бесконечного сохранения)
-//     sessionStorage.setItem('prevState', JSON.stringify(preloadedState));
-
-//     store.subscribe(() => {
-//         const currentState = store.getState();
-//         const prevState = JSON.parse(sessionStorage.getItem('prevState') || '{}');
-
-//         // Сравниваем предыдущее и текущее состояние
-//         if (JSON.stringify(prevState) !== JSON.stringify(currentState)) {
-//             saveState(APP_LOCALSTORAGE_KEY, currentState);
-//             sessionStorage.setItem('prevState', JSON.stringify(currentState)); // Обновляем prevState
-//         }
-//     });
-
-//     return store;
-// }

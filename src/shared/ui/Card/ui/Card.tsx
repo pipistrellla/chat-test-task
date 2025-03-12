@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from 'react';
+import React, { ForwardedRef, forwardRef, HTMLAttributes } from 'react';
 
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 
@@ -17,45 +17,49 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
     fullHeight?: boolean;
 }
 
-export const Card: FC<CardProps> = (props) => {
-    const {
-        className,
-        children,
-        variant = 'normal',
-        max,
-        padding = '8',
-        border = 'square',
-        fullHeight,
-        ...otherProps
-    } = props;
+export const Card = forwardRef(
+    (props: CardProps, ref: ForwardedRef<HTMLDivElement>) => {
+        const {
+            className,
+            children,
+            variant = 'normal',
+            max,
+            padding = '8',
+            border = 'square',
+            fullHeight,
 
-    const mapPaddingToClass: Record<CardPadding, string> = {
-        '0': 'gap_0',
-        '8': 'gap_8',
-        '16': 'gap_16',
-        '24': 'gap_24',
-    };
+            ...otherProps
+        } = props;
 
-    const paddingsClass = mapPaddingToClass[padding];
+        const mapPaddingToClass: Record<CardPadding, string> = {
+            '0': 'gap_0',
+            '8': 'gap_8',
+            '16': 'gap_16',
+            '24': 'gap_24',
+        };
 
-    const mods = {
-        [cls.max]: max,
-        [cls.fullHeight]: fullHeight,
-    };
+        const paddingsClass = mapPaddingToClass[padding];
 
-    const additionalClasses = [
-        className,
-        cls[variant],
-        cls[paddingsClass],
-        cls[border],
-    ];
+        const mods = {
+            [cls.max]: max,
+            [cls.fullHeight]: fullHeight,
+        };
 
-    return (
-        <div
-            className={classNames(cls.card, mods, additionalClasses)}
-            {...otherProps}
-        >
-            {children}
-        </div>
-    );
-};
+        const additionalClasses = [
+            className,
+            cls[variant],
+            cls[paddingsClass],
+            cls[border],
+        ];
+
+        return (
+            <div
+                ref={ref}
+                className={classNames(cls.card, mods, additionalClasses)}
+                {...otherProps}
+            >
+                {children}
+            </div>
+        );
+    },
+);

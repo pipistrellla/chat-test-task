@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useEffect, useRef } from 'react';
 
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Card } from '@/shared/ui/Card';
@@ -17,8 +17,21 @@ interface ShowMessagesProps {
 export const ShowMessages: FC<ShowMessagesProps> = memo((props) => {
     const { className, message, currentUserId } = props;
 
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            containerRef.current.scrollTo({
+                top: containerRef.current.scrollHeight,
+            });
+        }
+    }, []);
+
     return (
-        <Card className={classNames(cls.showMessages, {}, [className])}>
+        <Card
+            ref={containerRef}
+            className={classNames(cls.showMessages, {}, [className])}
+        >
             <VStack gap="8">
                 {message.map((message, index) => (
                     <Message

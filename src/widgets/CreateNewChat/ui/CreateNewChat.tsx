@@ -31,9 +31,8 @@ export const CreateNewChat: FC<CreateNewChatProps> = memo((props) => {
                 chatActions.addChat({
                     id: `${Date.now()}`,
                     name: chatName,
-                    messages: { ids: [], lastLoadedMessageIndex: 0 },
+                    messages: { ids: [] },
                     membersId: [userId],
-                    newMessagesCount: 0,
                 }),
             );
             setChatName('');

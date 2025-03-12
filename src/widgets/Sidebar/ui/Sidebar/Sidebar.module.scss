@@ -19,11 +19,15 @@
 
     .items {
         margin-top: 20px;
+        height: 70%;
+        overflow-y: auto;
+        scrollbar-color: var(--accent-color) transparent;
+        scrollbar-width: thin;
     }
 
     .collapseBtn {
         position: absolute;
-        right: 0;
+        right: 20px;
         top: 50%;
         z-index: 10;
         transform: rotate(90deg);
@@ -68,5 +72,8 @@
 
     .collapseBtn {
         transform: rotate(-90deg);
+        position: absolute;
+        bottom: 0;
+        z-index: 10;
     }
 }

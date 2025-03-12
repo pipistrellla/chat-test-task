@@ -29,7 +29,6 @@ const chatsSlice = createSlice({
 
             if (chat) {
                 chat.messages.ids.push(messageId);
-                chat.newMessagesCount += 1;
             }
         },
 
@@ -54,14 +53,6 @@ const chatsSlice = createSlice({
 
             if (chat) {
                 chat.membersId = chat.membersId.filter((id) => id !== userId);
-            }
-        },
-
-        viewNewMessage: (state, action: PayloadAction<{ chatId: string }>) => {
-            const { chatId } = action.payload;
-            const chat = state.entities[chatId];
-            if (chat) {
-                chat.newMessagesCount = 0;
             }
         },
     },

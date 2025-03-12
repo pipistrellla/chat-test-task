@@ -3,9 +3,9 @@ import React, { FC, useState } from 'react';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Button } from '@/shared/ui/Button/Button';
 import { Card } from '@/shared/ui/Card';
-import { Input } from '@/shared/ui/Input';
 import { HStack } from '@/shared/ui/Stack';
 import { Text } from '@/shared/ui/Text';
+import { TextArea } from '@/shared/ui/TextArea';
 
 interface SendMessageProps {
     className?: string;
@@ -28,16 +28,12 @@ export const SendMessage: FC<SendMessageProps> = (props) => {
             onClickSendMessageHandler(value);
         }
     };
-    // TODO заменить Input на TextArea
     return (
         <Card className={classNames('', {}, [className])}>
-            <HStack>
-                <Input
-                    onKeyDown={onKeyDownHandler}
-                    value={value}
-                    onChange={setValue}
-                />
+            <HStack gap="4">
+                <TextArea value={value} onChange={setValue} />
                 <Button
+                    onKeyDown={() => onKeyDownHandler}
                     onClick={() => onClickSendMessageHandler(value)}
                     variant="outline"
                 >

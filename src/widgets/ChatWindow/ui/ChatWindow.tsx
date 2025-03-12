@@ -2,7 +2,11 @@ import React, { FC } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { chatActions, getChatById, getMessagesForChat } from '@/entities/Chat';
+import {
+    chatActions,
+    getAllMessagesForChat,
+    getChatById,
+} from '@/entities/Chat';
 import {
     ShowMessages,
     getMessagesByIds,
@@ -17,30 +21,22 @@ import { Text } from '@/shared/ui/Text';
 import cls from './ChatWindow.module.scss';
 import { ChatWindowHeader } from './ChatWindowHeader/ChatWindowHeader';
 import { SendMessage } from './SendMessage/SendMessage';
-import { useLocalStorageSync } from './Sync';
 
 interface ChatWindowProps {
     className?: string;
     chatId: string;
 }
-// TODO сделать, чтобы не перерисовывалось часто при печатании
-// TODO отрисовка сообщейний после отправки  + вытягивание через время
-//  + индикатор новых сообщений + разобраться с папками ( sendmessage)
-// ПОПЫТАТЬСЯ СОХРАНЯТЬ СТЕЙТ В СЕССИОН ВМЕСТЕ С ПОЛЬЗОВАТЕЛЕМ СТОРАГЕ А ПОТОМ СОХРАНЯТЬ ЕГО В ЛОКАЛ
-// сделать броадкаст для передачи инфы для вкладок
-// или что-то что будет перезагружать redux и загружать новый localstorage
+
 export const ChatWindow: FC<ChatWindowProps> = (props) => {
     const { className, chatId } = props;
 
     const user = loadSessionUser();
     const dispatch = useAppDispatch();
     const chat = useSelector(getChatById(chatId));
-    const messagesId = useSelector(getMessagesForChat(chatId, 0, 20));
+    const messagesId = useSelector(getAllMessagesForChat(chatId));
     const messages = useSelector(getMessagesByIds(messagesId));
     const isChatNotFoundOrUserNotInChat =
         !chat || !chat.membersId.includes(user!.id);
-
-    useLocalStorageSync();
 
     const onLeaveChatHandler = () => {
         dispatch(

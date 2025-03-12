@@ -2,6 +2,7 @@ import React, {
     FC,
     TextareaHTMLAttributes,
     memo,
+    useCallback,
     useEffect,
     useRef,
     useState,
@@ -25,6 +26,7 @@ interface TextAreaProps extends HTMLTextAreaProps {
     autofocus?: boolean;
     readonly?: boolean;
     label?: string;
+    maxHeight?: number;
 }
 
 const TextArea: FC<TextAreaProps> = memo((props: TextAreaProps) => {
@@ -36,21 +38,22 @@ const TextArea: FC<TextAreaProps> = memo((props: TextAreaProps) => {
         autofocus,
         label,
         readonly,
+        maxHeight = 200,
         ...otherProps
     } = props;
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleInput = () => {
+    const handleInput = useCallback(() => {
         const textarea = textareaRef.current;
         if (textarea) {
             textarea.style.height = 'auto';
-            textarea.style.height = `${textarea.scrollHeight}px`;
+            textarea.style.height = `${Math.min(textarea.scrollHeight, maxHeight)}px`;
         }
-    };
+    }, [maxHeight]);
 
     useEffect(() => {
-        handleInput();
-    }, []);
+        handleInput(); // Обновляем высоту при монтировании
+    }, [handleInput]);
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const onBlur = () => {
