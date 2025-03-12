@@ -9,33 +9,34 @@ interface ThemeProviderProps {
     children: React.ReactNode;
 }
 
-const fallbackTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme;
+const fallbackTheme =
+    (localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme) || Theme.LIGHT;
 
-export const ThemeProvider: FC<ThemeProviderProps> = (props) => {
-    const { initialTheme, children } = props;
-    const [isThemeInited, setThemeInited] = useState(!LOCAL_STORAGE_THEME_KEY);
-
-    const [theme, setTheme] = useState<Theme>(initialTheme || fallbackTheme);
+export const ThemeProvider: FC<ThemeProviderProps> = ({
+    initialTheme,
+    children,
+}) => {
+    const [theme, setTheme] = useState<Theme>(initialTheme ?? fallbackTheme);
+    const [isThemeInited, setThemeInited] = useState(false);
 
     useEffect(() => {
-        if (!isThemeInited && initialTheme) {
-            setTheme(initialTheme);
+        if (!isThemeInited) {
+            const savedTheme = localStorage.getItem(
+                LOCAL_STORAGE_THEME_KEY,
+            ) as Theme;
+            setTheme(savedTheme || initialTheme || Theme.LIGHT);
             setThemeInited(true);
         }
-    }, [initialTheme, isThemeInited, theme]);
+    }, [initialTheme, isThemeInited]);
 
     useEffect(() => {
-        document.body.className = theme;
-        localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
-    }, [theme]);
+        if (isThemeInited) {
+            document.body.className = theme;
+            localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
+        }
+    }, [theme, isThemeInited]);
 
-    const defaultProps = useMemo(
-        () => ({
-            theme,
-            setTheme,
-        }),
-        [theme],
-    );
+    const defaultProps = useMemo(() => ({ theme, setTheme }), [theme]);
 
     return (
         <ThemeContext.Provider value={defaultProps}>

@@ -14,10 +14,10 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { Card } from '@/shared/ui/Card';
 import { Text } from '@/shared/ui/Text';
 
-import { useLocalStorageSync } from './async';
 import cls from './ChatWindow.module.scss';
 import { ChatWindowHeader } from './ChatWindowHeader/ChatWindowHeader';
 import { SendMessage } from './SendMessage/SendMessage';
+import { useLocalStorageSync } from './Sync';
 
 interface ChatWindowProps {
     className?: string;
