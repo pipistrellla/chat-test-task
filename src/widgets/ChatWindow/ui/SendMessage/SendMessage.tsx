@@ -30,8 +30,8 @@ export const SendMessage: FC<SendMessageProps> = (props) => {
         }
     };
 
-    const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && value.trim()) {
+    const onKeyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && value.trim() && !e.shiftKey) {
             onClickSendMessageHandler(value);
         }
     };
@@ -40,7 +40,11 @@ export const SendMessage: FC<SendMessageProps> = (props) => {
             <VStack gap="8" max justify="center" align="center">
                 <ReplyTo replyTo={replyTo} />
                 <HStack max gap="4">
-                    <TextArea value={value} onChange={setValue} />
+                    <TextArea
+                        value={value}
+                        onChange={setValue}
+                        onKeyDown={onKeyDownHandler}
+                    />
                     <Button
                         onKeyDown={() => onKeyDownHandler}
                         onClick={() => onClickSendMessageHandler(value)}
