@@ -17,7 +17,13 @@ const testMessages: MessageSchema[] = [
         authorId: '1',
         timestamp: 1709871234567,
     },
-    { id: '102', value: 'Hi, Alice!', authorId: '2', timestamp: 1709872234567 },
+    {
+        id: '102',
+        value: 'Hi, Alice!',
+        authorId: '2',
+        timestamp: 1709872234567,
+        replyTo: '101',
+    },
     {
         id: '103',
         value: 'How are you?',
@@ -63,4 +69,10 @@ export const initialStateData: StateSchema = {
     chat: chatsAdapter.getInitialState(
         chatsAdapter.addMany(chatsAdapter.getInitialState(), testChats),
     ),
+};
+
+export const emptyStateData: StateSchema = {
+    user: usersAdapter.getInitialState(),
+    message: messagesAdapter.getInitialState(),
+    chat: chatsAdapter.getInitialState(),
 };

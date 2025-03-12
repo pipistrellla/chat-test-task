@@ -6,13 +6,14 @@ import { chatActions } from '@/entities/Chat';
 import { messageActions } from '../../../../entities/Message/model/slice/MesagesSlice';
 
 export const sendMessage =
-    (chatId: string, authorId: string, value: string) =>
+    (chatId: string, authorId: string, value: string, replyTo?: string) =>
     (dispatch: AppDispatch) => {
         const newMessage = {
             id: `${Date.now()}`,
             value,
             authorId,
             timestamp: Date.now(),
+            replyTo,
         };
 
         // Отправляем сообщение в state

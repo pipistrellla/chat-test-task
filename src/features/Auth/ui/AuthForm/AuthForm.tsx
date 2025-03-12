@@ -46,6 +46,7 @@ const AuthForm: FC<AuthFormProps> = memo((props: AuthFormProps) => {
 
     const onClickRegister = () => {
         createUser(name, password);
+        loginUser(name, password);
         onSuccess();
     };
 

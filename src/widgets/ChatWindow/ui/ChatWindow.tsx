@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -35,6 +35,16 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
     const chat = useSelector(getChatById(chatId));
     const messagesId = useSelector(getAllMessagesForChat(chatId));
     const messages = useSelector(getMessagesByIds(messagesId));
+    const [replyMsg, setReplyMsg] = useState<string>('');
+
+    const onCLickReplyMsg = (value: string) => {
+        if (value !== replyMsg) {
+            setReplyMsg(value);
+        } else {
+            setReplyMsg('');
+        }
+    };
+
     const isChatNotFoundOrUserNotInChat =
         !chat || !chat.membersId.includes(user!.id);
 
@@ -47,8 +57,8 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
         );
     };
 
-    const SendMessageHandler = (value: string) => {
-        dispatch(sendMessage(chat!.id, user!.id, value));
+    const SendMessageHandler = (value: string, replyTo?: string) => {
+        dispatch(sendMessage(chat!.id, user!.id, value, replyTo));
     };
 
     if (isChatNotFoundOrUserNotInChat) {
@@ -70,11 +80,13 @@ export const ChatWindow: FC<ChatWindowProps> = (props) => {
                 className={cls.header}
             />
             <ShowMessages
+                setReplyTo={onCLickReplyMsg}
                 currentUserId={user!.id}
                 message={messages}
                 className={cls.messages}
             />
             <SendMessage
+                replyTo={replyMsg}
                 sendMessageHandler={SendMessageHandler}
                 className={cls.messageWriter}
             />

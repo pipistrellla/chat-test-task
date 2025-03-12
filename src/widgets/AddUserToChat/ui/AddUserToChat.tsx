@@ -2,7 +2,7 @@ import React, { FC, memo, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { chatActions, ChatSelect, getAllChats } from '@/entities/Chat';
+import { chatActions, ChatSelect, getChatsWithoutUser } from '@/entities/Chat';
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Button } from '@/shared/ui/Button/Button';
@@ -20,7 +20,7 @@ export const AddUserToChat: FC<AddUserToChatProps> = memo((props) => {
     const { className, userId } = props;
 
     const [chatToAdd, setChatToAdd] = useState<string>('');
-    const chats = useSelector(getAllChats);
+    const chats = useSelector(getChatsWithoutUser(userId));
     const onClickSetChatToAd = (chatId: string) => {
         setChatToAdd(chatId);
     };

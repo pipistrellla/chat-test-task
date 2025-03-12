@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 
 import { classNames } from '@/shared/lib/helpers/ClassNames/ClassNames';
 import { Card } from '@/shared/ui/Card';
@@ -12,10 +12,11 @@ interface ShowMessagesProps {
     className?: string;
     message: MessageSchema[];
     currentUserId: string;
+    setReplyTo?: (value: string) => void;
 }
 
-export const ShowMessages: FC<ShowMessagesProps> = memo((props) => {
-    const { className, message, currentUserId } = props;
+export const ShowMessages = memo((props: ShowMessagesProps) => {
+    const { className, message, currentUserId, setReplyTo } = props;
 
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +36,7 @@ export const ShowMessages: FC<ShowMessagesProps> = memo((props) => {
             <VStack gap="8">
                 {message.map((message, index) => (
                     <Message
+                        setReplyTo={setReplyTo}
                         key={message.id}
                         message={message}
                         className={

@@ -3,4 +3,5 @@ export interface MessageSchema {
     value: string;
     authorId: string;
     timestamp: number;
+    replyTo?: string;
 }

@@ -41,15 +41,15 @@ export const getMessagesForChat = (
         messagesIds.slice(startIndex, startIndex + count),
     );
 
-export const getLastMessagesIds = (chatId: string, count: number) =>
-    createSelector(getChatMessagesIds(chatId), (messagesIds) =>
-        messagesIds.slice(-count),
-    );
-
 export const getAllMessagesForChat = (chatId: string) =>
     createSelector(getChatMessagesIds(chatId), (messagesIds) => messagesIds);
 
 export const getChatsByIds = (chatIds: string[]) =>
     createSelector(getAllChats, (chats) =>
         chats.filter((chat) => chatIds.includes(chat.id)),
+    );
+
+export const getChatsWithoutUser = (userId: string) =>
+    createSelector(chatsSelectors.selectAll, (chats) =>
+        chats.filter((chat) => !chat.membersId.includes(userId)),
     );
