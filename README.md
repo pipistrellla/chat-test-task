@@ -1,5 +1,11 @@
 # приложение-чат
 
+## Тестовые пользователи
+
+-   name: Alice, password: 123123
+-   name: Bob, password: qwerty
+-   ame: Egor, password: 123
+
 # Для запуска проекта достаточно написать в директории
 
 -   `npm i`
