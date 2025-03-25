@@ -5,13 +5,29 @@
     border-radius: 32px;
     position: relative;
 
+    .user {
+        padding: 20px;
+    }
+
+    .chatLabel {
+        margin-top: 10px;
+        margin-left: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .items {
-        margin-top: 40px;
+        margin-top: 20px;
+        height: 70%;
+        overflow-y: auto;
+        scrollbar-color: var(--accent-color) transparent;
+        scrollbar-width: thin;
     }
 
     .collapseBtn {
         position: absolute;
-        right: 0;
+        right: 20px;
         top: 50%;
         z-index: 10;
         transform: rotate(90deg);
@@ -23,7 +39,9 @@
         bottom: 20px;
         display: flex;
         justify-content: center;
-        gap: 19px;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .icon {
@@ -39,20 +57,23 @@
         align-items: center;
     }
 
-    .appLogo {
-        padding: 5px;
+    .user {
+        display: none;
     }
 
-    .items {
-        display: flex;
-        align-items: center;
+    .chatLabel {
+        display: none;
     }
 
-    .lang {
-        margin-left: 0;
-    }
+    // .items {
+    //     display: flex;
+    //     align-items: center;
+    // }
 
     .collapseBtn {
         transform: rotate(-90deg);
+        position: absolute;
+        bottom: 0;
+        z-index: 10;
     }
 }

@@ -1,7 +1,13 @@
-import { CounterSchema } from '@/entities/Counter';
+import { EntityState } from '@reduxjs/toolkit';
+
+import { ChatSchema } from '@/entities/Chat';
+import { MessageSchema } from '@/entities/Message';
+import { UserSchema } from '@/entities/User';
 
 export interface StateSchema {
-    counter: CounterSchema;
+    chat: EntityState<ChatSchema>;
+    message: EntityState<MessageSchema>;
+    user: EntityState<UserSchema>;
 }
 
 export type StateSchemaKey = keyof StateSchema;

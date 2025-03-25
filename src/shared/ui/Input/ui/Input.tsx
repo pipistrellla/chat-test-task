@@ -1,10 +1,4 @@
-import React, {
-    FC,
-    InputHTMLAttributes,
-    memo,
-    ReactNode,
-    useState,
-} from 'react';
+import React, { FC, InputHTMLAttributes, memo, useState } from 'react';
 
 import { classNames, Mods } from '@/shared/lib/helpers/ClassNames/ClassNames';
 
@@ -28,8 +22,6 @@ interface InputProps extends HTMLInputProps {
     type?: string;
     autofocus?: boolean;
     readonly?: boolean;
-    addonLeft?: ReactNode;
-    addonRight?: ReactNode;
     label?: string;
     size?: InputSize;
 }
@@ -43,8 +35,6 @@ const Input: FC<InputProps> = memo((props: InputProps) => {
         placeholder,
         autofocus,
         readonly,
-        addonLeft,
-        addonRight,
         label,
         size = 'm',
         ...otherProps
@@ -66,8 +56,6 @@ const Input: FC<InputProps> = memo((props: InputProps) => {
     const mods: Mods = {
         [cls.readonly]: readonly,
         [cls.focused]: isFocused,
-        [cls.withAddonLeft]: Boolean(addonLeft),
-        [cls.withAddonRight]: Boolean(addonRight),
     };
 
     const input = (
@@ -77,8 +65,6 @@ const Input: FC<InputProps> = memo((props: InputProps) => {
                 cls[size],
             ])}
         >
-            {addonLeft && <div className={cls.addonLeft}>{addonLeft}</div>}
-
             <input
                 className={cls.Input}
                 type={type}
@@ -90,8 +76,6 @@ const Input: FC<InputProps> = memo((props: InputProps) => {
                 placeholder={placeholder}
                 {...otherProps}
             />
-
-            {addonRight && <div className={cls.addonRight}>{addonRight}</div>}
         </div>
     );
 
